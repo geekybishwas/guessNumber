@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project 1</title>
+    <link rel="stylesheet" href="./project1.css" />
+    <script type="text/javascript" src="./js/project1.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1 class="guess">Guess any Number</h1>
+        <button class="btn again">Again !</button>
+        <p class="between">(Between 1 and 20)</p>
+        <div class="number">?</div>
+    </header>
+    <main>
+        <section class="left">
+            <input type="number" min="1" max="20" placeholder="Input a Number" onfocus="this.placeholder=''" class=" box" />
+            <button class="btn check ">Check !</button>
+        </section>
+        <section class="right ">
+            <p class="guessing ">Start Guessing....</p>
+            <p class="score ">Score: <span class="score-number">
+            15<span></p>
+            <p class="high-score ">Highscore:<span class="high-score-number ">0<span></p>
+        </section>
+    </main>
+    <script>
+    
+    let sec_number=Math.trunc(Math.random()*20)+1;
+    let sn=Number(document.querySelector('.score-number').textContent);
+    let hs=Number(document.querySelector('.high-score-number').textContent);
+    
+    console.log(hs,typeof(hs))
+    console.log(sn);
+    document.querySelector('.number').textContent='?';
+    console.log(`Secret number is ${sec_number}`);
+    document.querySelector('.check').addEventListener('click',function(){
+        const input_number=Number(document.querySelector('.box').value);
+    
+    // When no number inputted
+    if(!input_number){
+        displayMessage("No number inputted");
+        alert('Error, No Number Inputted');
+    }
+
+    // When the inputted number matches the secret number
+    else if (input_number===sec_number)
+    {
+        console.log(sn);
+        displayMessage("Right Guess ");
+        document.querySelector('.number').style.width='20rem';
+        // document.body.style.backgroundImage = "url('./image.jpg')";
+        document.querySelector('body').style.backgroundImage="url('./image.image.jpg')";
+        document.querySelector('.number').innerHTML=sec_number;
+        if (sn>hs)
+        {
+        hs=sn;
+        document.querySelector('.high-score-number').textContent=hs;
+        }
+    }
+    else if (input_number!==sec_number)
+    {
+     if (sn>1)
+            {
+                displayMessage(input_number>sec_number?"Too High" : "Too Low");
+                get();
+             }
+        else{
+                displayMessage("You loose the game");
+                document.querySelector('.score-number').innerHTML=0;
+                alert('Opps you loose the game')
+            }
+    }
+    }
+    ) 
+
+    //COMMENT
+    // else if (input_number>sec_number){
+    //     if (sn>1)
+    //         {
+    //             document.querySelector('.guessing').textContent="Too High ";
+    //             get();
+    //          }
+    //     else{
+    //             document.querySelector('.guessing').innerHTML="<b>You loose the game</b>";
+    //             document.querySelector('.score-number').innerHTML=0;
+    //         }
+    // // sn--;
+    // // document.querySelector('.score-number').textContent=sn;
+    // }
+    // else if (input_number<sec_number){
+    //         if(sn>1)
+    //         {
+    //             document.querySelector('.guessing').textContent="Too Low ";
+    //             get();
+
+    //         }
+    //         else{
+    //             document.querySelector('.guessing').innerHTML="<b>You loose the game</b>";
+    //             document.querySelector('.score-number').textContent=0;
+    //         }
+    // }
+    
+    document.querySelector('.again').addEventListener('click', function(){
+        displayMessage('Start Guessing....');
+        document.body.style.backgroundImage="url('./project1.png')";
+        document.querySelector('.score-number').textContent='15';
+        document.querySelector('.number').style.width="15rem";
+        sec_number=Math.trunc(Math.random()*20)+1;
+        document.querySelector('.number').innerHTML='?';
+        document.querySelector('.box').value='';
+        sn=Number(document.querySelector('.score-number').textContent);
+    })
+    function get()
+    {
+        sn--;
+        document.querySelector('.score-number').textContent=sn;
+    }
+    function displayMessage(message)
+    {
+        document.querySelector('.guessing').innerHTML=message;
+    }
+    </script>
+</body>
+
+</html>
